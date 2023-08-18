@@ -54,9 +54,9 @@ internal class Program
         amigo2.ano = int.Parse(anoString2);
         Console.WriteLine();
 
-        //Atribuição de dados - Amigo 2
+        //Atribuição de dados - Amigo 3
         Console.Write("Digite o nome do seu terceiro amigo: ");
-        amigo2.nome = Console.ReadLine();
+        amigo3.nome = Console.ReadLine();
 
         Console.Write("Digite o dia de nascimento do seu terceiro amigo: ");
         string diaString3 = Console.ReadLine();
@@ -71,12 +71,31 @@ internal class Program
         amigo3.ano = int.Parse(anoString3);
         Console.WriteLine();
 
-        var aniversario1 = new DateOnly(amigo1.ano, amigo1.mes, amigo1.dia);
-        var aniversario2 = new DateOnly(amigo2.ano, amigo2.mes, amigo2.dia);
-        var aniversario3 = new DateOnly(amigo3.ano, amigo3.mes, amigo3.dia);
+        //Cria as datas dos aniversários de cada amigo
+        var aniversario1 = new DateTime(amigo1.ano, amigo1.mes, amigo1.dia);
+        var aniversario2 = new DateTime(amigo2.ano, amigo2.mes, amigo2.dia);
+        var aniversario3 = new DateTime(amigo3.ano, amigo3.mes, amigo3.dia);
 
-        Console.WriteLine($"A data de aniversário do primeiro amigo é {aniversario1}");
-        Console.WriteLine($"A data de aniversário do segundo amigo é {aniversario2}");
-        Console.WriteLine($"A data de aniversário do terceiro amigo é {aniversario3}");
+        //Realiza a comparação entre as datas.
+        //Retorna um int maior, igual ou menos que 0.
+        int comparacao1 = DateTime.Compare(aniversario1, aniversario2);
+        int comparacao2 = DateTime.Compare(aniversario2, aniversario3);
+        int comparacao3 = DateTime.Compare(aniversario1, aniversario3);
+        //comparacao1 < 0 = Amigo 1 mais velho do que Amigo 2
+        //comparacao1 > 0 = Amigo 2 mais velho do que Amigo 1
+        //comparacao2 < 0 = Amigo 2 mais velho do que Amigo 3
+        //comparacao2 > 0 = Amigo 3 mais velho do que Amigo 2
+        //comparacao3 < 0 = Amigo 1 mais velho do que Amigo 3
+        //comparacao3 > 0 = Amigo 3 mais velho do que Amigo 1
+
+        if (comparacao1 < 0 && comparacao3 < 0){
+            Console.WriteLine($"{amigo1.nome} é o mais velho.");
+        } else if (comparacao1 > 0 && comparacao2 < 0) {
+            Console.WriteLine($"{amigo2.nome} é o mais velho.");
+        } else if (comparacao2 > 0 && comparacao3 > 0){
+            Console.WriteLine($"{amigo3.nome} é o mais velho.");
+        } else if (comparacao1 == 0 && comparacao2 == 0 && comparacao3 == 0){
+            Console.WriteLine($"Todos os seus amigos tem idade iguais!");
+        }
     }
 }
